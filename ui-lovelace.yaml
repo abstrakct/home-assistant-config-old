@@ -34,19 +34,10 @@ views:
             - sensor.min_status
             - entity: sensor.batteri_s9
               name: Batteri telefon
-              #- sensor.rolfs_tilstand
-              #- sensor.rolfs_aktivitet
-              #- sensor.rolfs_posisjon
             - entity: sensor.sengetidsindikator
               icon: mdi:hotel
               name: Sengetid?
-              #- sensor.temperatur
-              #- sensor.luftfuktighet
-              #- sensor.lufttrykk
             - climate.inneklima
-              #- sensor.yr_symbol_current_human
-              #- entity: sensor.yr_temperature
-              #  name: Temperatur ute
             - entity: sensor.weather_forecast_temperature
               name: Temperatur ute om 6 timer
             - entity: sensor.temperatur_stue
@@ -166,53 +157,9 @@ views:
           type: custom:simple-thermostat
           entity: climate.inneklima
           step_size: 1
-          #sensors:
-          #  - entity: sensor.luftfuktighet_stue
         style:
           border-radius: 20px
           border: solid 1px rgba(100,100,100,0.3)
-
-          #- type: custom:card-modder
-          #  card:
-          #    type: thermostat
-          #    entity: climate.inneklima
-          #  style:
-          #    border-radius: 20px
-          #    border: solid 1px rgba(100,100,100,0.3)
-
-      #- type: entities
-      #  title: Stue
-      #  show_header_toggle: false
-      #  entities:
-      #    - light.stue
-      #    - media_player.streamofunconsciousness
-      #    - media_player.scarlet_begonias
-      
-          #- type: custom:card-modder
-          #  card:
-          #    type: entities
-          #    title: Oppholdsrom
-          #    show_header_toggle: true
-          #    entities:
-          #      - light.stue
-          #      - light.kontor_1
-          #      - light.kontor_3
-          #  style:
-          #    border-radius: 20px
-          #    border: solid 1px rgba(100,100,100,0.3)
-
-          #- type: custom:card-modder
-          #  card:
-          #    type: entities
-          #    title: Soverom
-          #    show_header_toggle: true
-          #    entities:
-          #      - light.soverom
-          #      - light.soverom_taklampe
-          #      - light.rgb1
-          #  style:
-          #    border-radius: 20px
-          #    border: solid 1px rgba(100,100,100,0.3)
 
       - type: custom:card-modder
         card:
@@ -226,8 +173,6 @@ views:
             - entity: switch.kaffetrakter
               icon: mdi:coffee
             - entity: switch.circadian_lighting_circadian_lighting
-              #- entity: switch.fluxlights
-              #  icon: mdi:weather-sunny
             - entity: input_boolean.sengetid_override
             - entity: input_boolean.kaffetrakter_override
             - entity: input_boolean.kaffetrakter_renseprogram
@@ -250,12 +195,6 @@ views:
         style:
           border-radius: 20px
           border: solid 1px rgba(100,100,100,0.3)
-
-            #- type: entities
-            #  title: Status
-            #  show_header_toggle: false
-            #  entities:
-            #    - group.rolf
 
       - type: custom:card-modder
         card:
@@ -303,22 +242,6 @@ views:
           border-radius: 20px
           border: solid 1px rgba(100,100,100,0.3)
         
-          #- type: custom:card-modder
-          #  card:
-          #    type: entity-filter
-          #    entities:
-          #      - device_tracker.rolf_s9_gpslogger
-          #    state_filter:
-          #      - home
-          #    card:
-          #      type: glance
-          #      title: Hvem er hjemme?
-          #      show_state: false
-          #      show_name: false
-          #  style:
-          #    border-radius: 20px
-          #    border: solid 1px rgba(100,100,100,0.3)
-
       - type: custom:card-modder
         card:
           type: entities
@@ -326,7 +249,7 @@ views:
           show_header_toggle: false
           entities:
             #- sensor.batteri_s9
-              #- sensor.batterispenning_sensor_stue
+            #- sensor.batterispenning_sensor_stue
             - sensor.fjernkontroll_stue
             - sensor.fjernkontroll_soverom
         style:
@@ -461,4 +384,3 @@ views:
                   - type: weather-forecast
                     entity: weather.metno
 
-        #<iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=63.432&lon=10.311&zoom=9&level=surface&overlay=rain&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=63.431&detailLon=10.395&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
