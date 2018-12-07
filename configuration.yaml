@@ -1,0 +1,237 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Here Be Monsters
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 160
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Oslo
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+  themes: !include themes.yaml
+
+# Enables configuration UI
+config:
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+# Possibly change to only include certain entities
+#   use_include_order: True
+history:
+  exclude:
+    entities:
+      - group.batterier
+      - group.downloads
+      - group.rolf_status
+      - group.scener
+      - group.info
+      - group.soverom
+      - group.oppholdsrom
+      - group.weather
+      - group.weatherforecast
+      - persistent_notification.config_entry_discovery
+      - sensor.rolfs_tilstand
+      - script.going_to_sleep
+      - automation.set_theme_at_startup
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# MQTT
+mqtt:
+  broker: core-mosquitto
+  username: rolf
+  password: !secret password_mqtt
+  discovery: true
+
+# sabnzbd - doesn't work right now, something is wrong with my setup
+#sabnzbd:
+#  api_key: !secret sabnzbd_api_key
+#  host: 
+#  port: 8181
+#  name: sab
+#  sensors:
+#    - current_status
+#    - speed
+#    - queue_size
+#    - queue_remaining
+#    - disk_size
+#    - disk_free
+#    - queue_count
+#    - day_size
+#    - week_size
+#    - month_size
+#    - total_size
+
+# Sensors
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+
+# Text to speech
+tts:
+  - platform: google
+    language: 'no'
+    base_url: !secret duckdns_url
+
+# Cloud
+# cloud:
+
+notify:
+  - name: android
+    platform: fcm-android
+    #- name: notify
+    #  platform: html5
+    #  gcm_api_key: !secret gcm_api_key
+    #  gcm_sender_id: !secret gcm_sender_id
+
+ifttt:
+  key: !secret ifttt_webhooks
+
+# INCLUDES
+# TODO: move more things to directories and separate files?
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+switch: !include_dir_merge_list switches
+input_boolean: !include input_boolean.yaml
+climate: !include climate.yaml
+
+panel_iframe:
+  nodered:
+    title: Node-RED
+    icon: mdi:sitemap
+    url: https://herebemonsters:1880
+  logviewer:
+    title: Log Viewer
+    icon: mdi:book-open
+    url: https://herebemonsters:4277
+ 
+device_tracker:
+  - platform: gpslogger
+    #- platform: owntracks_http
+    #  track_new_devices: yes
+    #  consider_home: 0:05
+    #  waypoints: true
+    #  waypoint_whitelist:
+    #    - rolf
+    #  region_mapping:
+    #    Home: home
+  - platform: nmap_tracker
+    interval_seconds: 30
+    hosts:
+      - 192.168.0.192
+    #exclude:
+    #  - 192.168.0.1
+    #  - 192.168.0.102
+    #  - 192.168.0.103
+    #  - 192.168.0.105
+    #  - 192.168.0.110
+    #  - 192.168.0.127
+    #  - 192.168.0.136
+    #  - 192.168.0.231
+          
+media_player:
+  - platform: kodi
+    host: 192.168.0.136
+    name: Scarlet Begonias
+    #- platform: mpd
+    #- host: 192.168.0.102
+    #- name: MPD
+
+cast:
+  media_player:
+    - ignore_cec:
+      - 'Stream of Unconsciousness'
+
+        #media_extractor:
+        #  default_query: best
+
+tradfri:
+  allow_tradfri_groups: false
+
+http:
+  base_url: !secret duckdns_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  #trusted_networks:
+  #  - 127.0.0.1
+  #  - ::1
+  #  - 192.168.0.0/24
+  #  - fd00::/8
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+  api_password: !secret api_password
+
+  #notify:    
+  #  - name: android
+  #    platform: fcm-android
+
+recorder:
+  purge_keep_days: 7
+  purge_interval: 1
+
+weather:
+  - platform: met
+
+light:
+  - platform: group
+    name: "Lys oppholdsrom"
+    entities:
+      - light.stue
+      - light.kontor_1
+      - light.kontor_3
+  - platform: group
+    name: "Lys soverom"
+    entities:
+      - light.soverom
+      - light.soverom_taklampe
+      - light.rgb1
+
+circadian_lighting:
+
+  #snips:
+
+hassio:
+
+  #intent_script: !include intent_scripts.yaml
+
+logger:
+  default: warning
+  logs:
+    #homeassistant.components.mqtt: debug
+
+    #input_boolean:
+    #  asleep:
+    #    name: I am asleep
+    #    initial: off
+    #  awake:
+    #    name: I am awake
+    #    initial: on
