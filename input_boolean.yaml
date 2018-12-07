@@ -1,0 +1,28 @@
+disable_cl:
+  name: Disable circadian lighting
+  initial: off
+  icon: mdi:weather-sunset
+
+sengetid_override:
+  name: Overstyring av sengetid
+  initial: off
+  icon: mdi:bed-empty
+
+kaffetrakter_override:
+  name: Overstyring av kaffetrakter
+  initial: off
+  icon: mdi:coffee
+
+kaffetrakter_renseprogram:
+  name: Start rensing av kaffetrakter
+  initial: off
+  icon: mdi:coffee
+
+kaffetrakter_lag_kaffe:
+  name: Start kaffetrakterprogram
+  initial: off
+  icon: mdi:coffee
+
+node_red_watchdog:
+  name: Node Red Watchdog
+  initial: on

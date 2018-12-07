@@ -1,0 +1,13 @@
+- platform: mqtt
+  name: Inneklima
+  current_temperature_topic: "stue/sensor/temperatur_stue/state"
+  availability_topic: "varmepumpe/status"
+  mode_command_topic: "varmepumpe/mode/set"
+  mode_state_topic: "varmepumpe/mode/get"
+  temperature_command_topic: "varmepumpe/temp/set"
+  temperature_state_topic: "varmepumpe/temp/get"
+  fan_mode_command_topic: "varmepumpe/fan/set"
+  fan_mode_state_topic: "varmepumpe/fan/get"
+  min_temp: 17
+  max_temp: 30
+  #temperature_state_template: "{{ i don't know how templates work }}"

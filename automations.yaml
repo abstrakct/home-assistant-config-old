@@ -1,0 +1,126 @@
+- alias: "Set theme at startup"
+  initial_state: "on"
+  trigger:
+    - platform: homeassistant
+      event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: vintage
+
+- alias: "Restart NodeRED Watchdog"
+  trigger:
+    - platform: state
+      entity_id: sensor.node_red_watchdog
+      from: 'OK'
+      to: 'unknown'
+  action:
+    service: hassio.addon_restart
+    data:
+      addon: 'a0d7b954_nodered'
+
+      #- alias: "Kodi paused"
+      #  trigger:
+      #    - platform: state
+      #      entity_id: media_player.scarlet_begonias
+      #      from: 'playing'
+      #      to: 'paused'
+      #  condition:
+      #    - condition: state
+      #      entity_id: sun.sun
+      #      state: 'below_horizon'
+      #  action:
+      #    service: scene.turn_on
+      #    entity_id: scene.oppholdsrom_pause
+      #
+      #- alias: "Kodi unpaused"
+      #  trigger:
+      #    - platform: state
+      #      entity_id: media_player.scarlet_begonias
+      #      from: 'paused'
+      #      to: 'playing'
+      #  condition:
+      #    - condition: state
+      #      entity_id: sun.sun
+      #      state: 'below_horizon'
+      #  action:
+      #    service: scene.turn_on
+      #    entity_id: scene.oppholdsrom_av
+      #
+      #- alias: "Kodi playing"
+      #  trigger:
+      #    - platform: state
+      #      entity_id: media_player.scarlet_begonias
+      #      from: 'idle'
+      #      to: 'playing'
+      #  condition:
+      #    - condition: state
+      #      entity_id: sun.sun
+      #      state: 'below_horizon'
+      #  action:
+      #    service: scene.turn_on
+      #    entity_id: scene.oppholdsrom_av
+      #
+      #- alias: "Kodi stopped"
+      #  trigger:
+      #    - platform: state
+      #      entity_id: media_player.scarlet_begonias
+      #      from: 'playing'
+      #      to: 'idle'
+      #  condition:
+      #    - condition: state
+      #      entity_id: sun.sun
+      #      state: 'below_horizon'
+      #  action:
+      #    service: scene.turn_on
+      #    entity_id: scene.oppholdsrom_kveld
+
+# Skru av lys når jeg drar hjemmefra
+#- alias: "God tur"
+#  trigger:
+#    - platform: state
+#      entity_id: group.Rolf
+#      from: 'home'
+#      to: 'not_home'
+#  action:
+#    - service: scene.turn_on
+#      entity_id: scene.oppholdsrom_av
+#    - service: notify.notify
+#      data:
+#        message: "God tur!"
+#
+## Skru på dagslys-belysning når jeg kommer hjem før solnedgang
+#- alias: "Velkommen hjem dag"
+#  trigger:
+#    - platform: state
+#      entity_id: group.Rolf
+#      from: 'not_home'
+#      to: 'home'
+#  condition:
+#    - condition: state
+#      entity_id: sun.sun
+#      state: 'above_horizon'
+#  action:
+#    - service: scene.turn_on
+#      entity_id: scene.oppholdsrom_dag
+#    - service: notify.notify
+#      data:
+#        message: "Velkommen hjem!"
+#
+## Skru på dempet belysning når jeg kommer hjem etter solnedgang
+#- alias: "Velkommen hjem kveld"
+#  trigger:
+#    - platform: state
+#      entity_id: group.Rolf
+#      from: 'not_home'
+#      to: 'home'
+#  condition:
+#    - condition: state
+#      entity_id: sun.sun
+#      state: 'below_horizon'
+#  action:
+#    - service: scene.turn_on
+#      entity_id: scene.oppholdsrom_kveld
+#    - service: notify.notify
+#      data:
+#        message: "Velkommen hjem!"

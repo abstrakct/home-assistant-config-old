@@ -1,0 +1,156 @@
+#########################
+# Device tracker groups #
+#########################
+Rolf: 
+  - device_tracker.rolf_s9_nmap
+  - device_tracker.rolf_s9_gpslogger
+
+    #Rolf_status:
+    #  - sensor.rolfs_tilstand
+    #  - sensor.rolfs_aktivitet
+    #  - sensor.rolfs_posisjon
+
+# Light groups
+Oppholdsrom:
+  control: hidden
+  entities:
+    - light.stue
+    - light.kontor_1
+    - light.kontor_3
+
+Soverom:
+  entities:
+    - light.soverom
+    - light.soverom_taklampe
+    - light.rgb1
+
+###########################################
+# Frontend - tabs to replace default view #
+###########################################
+#default_view:
+#  view: yes
+#  icon: mdi:castle
+#  entities:
+#    - group.Info
+#    - group.Oppholdsrom
+#    - group.Soverom
+#    - group.Scener
+#    - group.Batterier
+#      #- group.AlarmClock
+#      #- group.Alarm
+#      
+##Lights:
+##  view: yes
+##  icon: mdi:flash
+##  entities:
+##    - group.Oppholdsrom
+##    - group.Soverom
+#
+#Media:
+#  view: yes
+#  icon: mdi:movie
+#  entities:
+#    - switch.tv_kodi
+#    - media_player.scarlet_begonias
+#    - media_player.streamofunconsciousness
+#    - group.Downloads
+#
+#Climate:
+#  view: yes
+#  icon: mdi:weather-cloudy
+#  entities:
+#    - group.Weather
+#    - group.WeatherForecast
+#    #- group.Weather
+#    #- group.Today
+#    #- group.Indoors
+#
+##########################
+## Groups for above tabs #
+##########################
+#
+#Batterier:
+#  entities:
+#    - sensor.batteri_s9
+#    - sensor.fjernkontroll_stue
+#    - sensor.fjernkontroll_soverom
+#
+#Downloads:
+#  entities:
+#    - sensor.sonarr_upcoming
+#    - sensor.transmission_status
+#    - sensor.transmission_active_torrents
+#    - sensor.transmission_paused_torrents
+#    - sensor.transmission_down_speed
+#    - sensor.transmission_up_speed
+#
+#      #- group.transmissionbadges
+#      #- sensor.sabnzbd_status
+#      #- input_boolean.sabnzbd_turtle_mode
+#      #- group.sabnzbdbadges
+#
+#Info:
+#  entities:
+#    - group.Rolf
+#    - sensor.min_status
+#    - sensor.temperatur_inne
+#    - sensor.luftfuktighet_inne
+#    - sensor.yr_symbol_current_human
+#    - sensor.yr_temperature
+#    - sensor.pihole_ads_blocked_today
+#    - sensor.pihole_dns_queries_today
+#    - sensor.pihole_dns_unique_clients
+#    - sensor.sonarr_disk_space
+#
+#Scener:
+#  control: hidden
+#  entities:
+#    - scene.oppholdsrom_dag
+#    - scene.oppholdsrom_solnedgang
+#    - scene.oppholdsrom_kveld
+#    - scene.oppholdsrom_av
+#    - scene.sengetid
+#
+#
+#Soverom:
+#  control: hidden
+#  entities:
+#    - light.soverom
+#    - light.soverom_taklampe
+#
+#      #Today:
+#      #  entities:
+#      #    - group.todaybadges
+#      #      #- sensor.friendly_date
+#      #
+#      #todaybadges:
+#      #  entities:
+#      #    - sun.sun
+#      #      #- sensor.solar_angle
+#      #      #- sensor.sunrise_time
+#      #      #- sensor.sunset_time
+#      #      #- sensor.moon
+#
+#Weather:
+#  name: Været nå
+#  entities:
+#    - sensor.yr_symbol_current_human
+#    - sensor.yr_temperature
+#    - sensor.yr_precipitation
+#    - sensor.yr_wind_speed
+#    - sensor.yr_humidity
+#    - sun.sun
+#
+#WeatherForecast:
+#  name: Værmelding
+#  entities:
+#    - sensor.weather_forecast_symbol_human
+#    - sensor.weather_forecast_temperature
+#    - sensor.weather_forecast_precipitation
+#    - sensor.weather_forecast_wind_speed
+#    - sensor.weather_forecast_humidity
+#
+#      #weatherbadges:
+#      #  control: hidden
+#      #  entities:
+#      #    - sensor.yr_symbol

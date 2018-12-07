@@ -1,0 +1,464 @@
+############################################################
+#             Resources                                    #
+############################################################
+resources:
+  - url: /local/custom-lovelace/upcoming-media-card/upcoming-media-card.js
+    type: js
+  - url: /local/custom-lovelace/simple-thermostat/simple-thermostat.js?v=1
+    type: module
+  - url: /local/custom-lovelace/button-card/button-card.js
+    type: module
+  - url: /local/card-modder.js
+    type: module
+
+
+
+############################################################
+#             Title                                        #
+############################################################
+title: Here Be Monsters
+
+
+############################################################
+#             View: Default                                #
+############################################################
+views:
+  - title: default_view
+    icon: mdi:castle
+    cards:
+      - type: custom:card-modder
+        card:
+          type: entities
+          show_header_toggle: false
+          entities:
+            - sensor.min_status
+            - entity: sensor.batteri_s9
+              name: Batteri telefon
+              #- sensor.rolfs_tilstand
+              #- sensor.rolfs_aktivitet
+              #- sensor.rolfs_posisjon
+            - entity: sensor.sengetidsindikator
+              icon: mdi:hotel
+              name: Sengetid?
+              #- sensor.temperatur
+              #- sensor.luftfuktighet
+              #- sensor.lufttrykk
+            - climate.inneklima
+              #- sensor.yr_symbol_current_human
+              #- entity: sensor.yr_temperature
+              #  name: Temperatur ute
+            - entity: sensor.weather_forecast_temperature
+              name: Temperatur ute om 6 timer
+            - entity: sensor.temperatur_stue
+              name: Temperatur stue
+            - entity: sensor.luftfuktighet_stue
+              name: Luftfuktighet stue
+            - entity: binary_sensor.bevegelsessensor_stue
+              name: Bevegelsessensor stue
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.stue
+              name: Stue
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.kontor_1
+              name: Kontor 1
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.kontor_3
+              name: Kontor 3
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.lys_oppholdsrom
+              name: Alle
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+
+      - type: horizontal-stack
+        cards:
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.soverom
+              name: Soverom
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.soverom_taklampe
+              name: Taklampe
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.rgb1
+              name: Vekkelys
+              icon: mdi:lightbulb
+              color_type: icon
+              color: auto
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+          - type: custom:card-modder
+            card:
+              type: custom:button-card
+              entity: light.lys_soverom
+              name: Alle
+              icon: mdi:lightbulb
+              color_type: icon
+              color: "var(--turmeric-color)"
+              size: 20%
+            style:
+              border-radius: 20px
+              border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: custom:simple-thermostat
+          entity: climate.inneklima
+          step_size: 1
+          #sensors:
+          #  - entity: sensor.luftfuktighet_stue
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+          #- type: custom:card-modder
+          #  card:
+          #    type: thermostat
+          #    entity: climate.inneklima
+          #  style:
+          #    border-radius: 20px
+          #    border: solid 1px rgba(100,100,100,0.3)
+
+      #- type: entities
+      #  title: Stue
+      #  show_header_toggle: false
+      #  entities:
+      #    - light.stue
+      #    - media_player.streamofunconsciousness
+      #    - media_player.scarlet_begonias
+      
+          #- type: custom:card-modder
+          #  card:
+          #    type: entities
+          #    title: Oppholdsrom
+          #    show_header_toggle: true
+          #    entities:
+          #      - light.stue
+          #      - light.kontor_1
+          #      - light.kontor_3
+          #  style:
+          #    border-radius: 20px
+          #    border: solid 1px rgba(100,100,100,0.3)
+
+          #- type: custom:card-modder
+          #  card:
+          #    type: entities
+          #    title: Soverom
+          #    show_header_toggle: true
+          #    entities:
+          #      - light.soverom
+          #      - light.soverom_taklampe
+          #      - light.rgb1
+          #  style:
+          #    border-radius: 20px
+          #    border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: entities
+          title: Brytere
+          show_header_toggle: false
+          entities:
+            - entity: light.gang
+            - entity: input_boolean.kaffetrakter_lag_kaffe
+              icon: mdi:coffee
+            - entity: switch.kaffetrakter
+              icon: mdi:coffee
+            - entity: switch.circadian_lighting_circadian_lighting
+              #- entity: switch.fluxlights
+              #  icon: mdi:weather-sunny
+            - entity: input_boolean.sengetid_override
+            - entity: input_boolean.kaffetrakter_override
+            - entity: input_boolean.kaffetrakter_renseprogram
+              icon: mdi:coffee
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: entities
+          title: Scener
+          show_header_toggle: false
+          entities:
+            - scene.oppholdsrom_dag
+              #- scene.oppholdsrom_solnedgang
+            - scene.oppholdsrom_kveld
+              #- scene.oppholdsrom_av
+            - scene.sengetid
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+            #- type: entities
+            #  title: Status
+            #  show_header_toggle: false
+            #  entities:
+            #    - group.rolf
+
+      - type: custom:card-modder
+        card:
+          type: weather-forecast
+          entity: weather.metno
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: history-graph
+          hours_to_show: 96
+          refresh_interval: 3600
+          entities:
+            - entity: sensor.temperatur_stue
+              name: Temperatur stue
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: history-graph
+          hours_to_show: 96
+          refresh_interval: 3600
+          entities:
+            - entity: sensor.yr_temperature
+              name: Temperatur ute
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: entities
+          title: Nettverk
+          show_header_toggle: false
+          entities:
+            - sensor.pihole_ads_blocked_today
+            - sensor.pihole_dns_queries_today
+            - sensor.pihole_dns_unique_clients
+            - sensor.sonarr_disk_space
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+        
+          #- type: custom:card-modder
+          #  card:
+          #    type: entity-filter
+          #    entities:
+          #      - device_tracker.rolf_s9_gpslogger
+          #    state_filter:
+          #      - home
+          #    card:
+          #      type: glance
+          #      title: Hvem er hjemme?
+          #      show_state: false
+          #      show_name: false
+          #  style:
+          #    border-radius: 20px
+          #    border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: entities
+          title: Batterier
+          show_header_toggle: false
+          entities:
+            #- sensor.batteri_s9
+              #- sensor.batterispenning_sensor_stue
+            - sensor.fjernkontroll_stue
+            - sensor.fjernkontroll_soverom
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: history-graph
+          hours_to_show: 96
+          refresh_interval: 3600
+          entities:
+            - entity: sensor.lufttrykk_stue
+              name: Lufttrykk stue
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: history-graph
+          hours_to_show: 96
+          refresh_interval: 3600
+          entities:
+            - entity: sensor.sonarr_disk_space
+              name: The Vault
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+############################################################
+#             View: Media                                  #
+############################################################
+  - title: Media
+    icon: mdi:movie
+    panel: true
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            show_header_toggle: false
+            column_width: 15%
+            entities:
+              - sensor.sonarr_upcoming
+              - sensor.transmission_status
+              - sensor.transmission_active_torrents
+              - sensor.transmission_paused_torrents
+              - sensor.transmission_down_speed
+              - sensor.transmission_up_speed
+
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: media-control
+                    entity: media_player.scarlet_begonias
+
+              - type: vertical-stack
+                cards:
+                  - type: media-control
+                    entity: media_player.streamofunconsciousness
+
+                    #- type: vertical-stack
+                    #  cards:
+                    #    - type: entities
+                    #      entities:
+                    #        - switch.tv_kodi
+
+              - type: vertical-stack
+                cards:
+                  - type: custom:upcoming-media-card
+                    title: Nye og kommende episoder
+                    service: sonarr
+                    image_style: fanart
+                    clock: 24
+                    max: 5
+
+############################################################
+#             View: Klima                                  #
+############################################################
+  - title: Klima
+    icon: mdi:weather-cloudy
+    panel: true
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: glance
+            show_header_toggle: false
+            column_width: 15%
+            entities:
+              - sensor.yr_symbol_current_human
+              - sensor.yr_temperature
+              - sensor.yr_precipitation
+              - sensor.yr_wind_speed
+              - sensor.yr_humidity
+              - sun.sun
+
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: iframe
+                    url: https://embed.windy.com/embed2.html?lat=63.414&lon=10.376&zoom=12&level=surface&overlay=temp&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=63.431&detailLon=10.395&metricWind=default&metricTemp=default&radarRange=-1
+                    aspect_ratio: 100%
+
+              - type: vertical-stack
+                cards:
+                  - type: iframe
+                    url: https://embed.windy.com/embed2.html?lat=63.414&lon=10.376&zoom=12&level=surface&overlay=rain&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=63.431&detailLon=10.395&metricWind=default&metricTemp=default&radarRange=-1
+                    aspect_ratio: 100%
+
+              - type: vertical-stack
+                cards:
+                  - type: iframe
+                    url: https://embed.windy.com/embed2.html?lat=63.414&lon=10.376&zoom=12&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=63.431&detailLon=10.395&metricWind=default&metricTemp=default&radarRange=-1
+                    aspect_ratio: 100%
+
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: entities
+                    title: "Værmelding"
+                    show_header_toggle: false
+                    entities:
+                      - sensor.weather_forecast_symbol_human
+                      - sensor.weather_forecast_temperature
+                      - sensor.weather_forecast_precipitation
+                      - sensor.weather_forecast_wind_speed
+                      - sensor.weather_forecast_humidity
+
+                  - type: weather-forecast
+                    entity: weather.metno
+
+        #<iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=63.432&lon=10.311&zoom=9&level=surface&overlay=rain&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=63.431&detailLon=10.395&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>

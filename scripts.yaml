@@ -1,0 +1,20 @@
+
+
+# TODO: Just use node-red instead of scripts?
+#going_to_sleep:
+#  sequence:
+#    - service: light.turn_off
+#      data:
+#        entity_id: group.all_lights
+
+        #woke_up:
+        #  sequence:
+        #    - service: scene.turn_on
+        #      data: 
+        #        entity_id: scene.oppholdsrom_dag
+        #    - delay:
+        #      minutes: 15
+        #    - service: light.turn_off
+        #      data:
+        #        entity_id: light.soverom_taklampe
+

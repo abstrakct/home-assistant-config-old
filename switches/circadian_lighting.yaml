@@ -1,0 +1,6 @@
+- platform: circadian_lighting
+  lights_ct:
+    - light.stue
+    - light.kontor_1
+    - light.kontor_3
+  disable_entity: input_boolean.disable_cl

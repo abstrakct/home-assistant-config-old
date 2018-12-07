@@ -1,0 +1,267 @@
+- platform: history_stats
+  name: stat_tid_hjemme_uke
+  friendly_name: "Tid hjemme siste uke"
+  entity_id: group.rolf
+  state: 'home'
+  type: time
+  start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
+  end: '{{ now() }}'
+
+- platform: history_stats
+  name: stat_tid_ikke_hjemme_uke
+  friendly_name: "Tid ikke hjemme siste uke"
+  entity_id: group.rolf
+  state: 'not_home'
+  type: time
+  start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
+  end: '{{ now() }}'
+
+- platform: mqtt
+  name: "Min status"
+  state_topic: "Rolf/status"
+  icon: mdi:account-location
+
+  #- platform: mqtt
+  #  name: "Rolfs tilstand"
+  #  state_topic: "Rolf/tilstand"
+  #  icon: mdi:account-location
+  #
+  #- platform: mqtt
+  #  name: "Rolfs aktivitet"
+  #  state_topic: "Rolf/aktivitet"
+  #  icon: mdi:account-alert
+  #
+  #- platform: mqtt
+  #  name: "Rolfs posisjon"
+  #  state_topic: "Rolf/posisjon"
+  #  icon: mdi:account-search
+
+- platform: mqtt
+  name: "Sengetidsindikator"
+  state_topic: "Rolf/sengetid"
+  icon: mdi:hotel
+  #value_template: "{% if states.sengetidsindikator | string=='True' %} Ja {% elif states.sengetidsindikator | string=='False' %} Nei {% endif %}"
+
+  #- platform: mqtt
+  #  name: "Temperatur"
+  #  state_topic: "sensor/6739466/temperature"
+  #  icon: mdi:thermometer
+  #  unit_of_measurement: '°C'
+  #  #value_template: '{{ value_json.temperature }}'
+  #
+  #- platform: mqtt
+  #  name: "Luftfuktighet"
+  #  state_topic: "sensor/6739466/humidity"
+  #  icon: mdi:speedometer
+  #  unit_of_measurement: '%'
+  #  #value_template: '{{ value_json.humidity }}'
+  #
+  #- platform: mqtt
+  #  name: "Lufttrykk"
+  #  state_topic: "sensor/6739466/pressure"
+  #  icon: mdi:speedometer
+  #  unit_of_measurement: 'hPa'
+
+  #- platform: mqtt
+  #  name: "Batterispenning sensor stue"
+  #  state_topic: "sensor/6739466/vcc"
+  #  icon: mdi:speedometer
+  #  unit_of_measurement: 'V'
+
+- platform: mqtt
+  name: "Node Red Watchdog"
+  state_topic: "checkIn/nodeRED"
+  expire_after: 300
+
+- platform: pi_hole
+  host: 192.168.0.136
+  monitored_conditions:
+    - ads_blocked_today
+    - dns_queries_today
+    - unique_clients
+
+- platform: transmission
+  host: 192.168.0.102
+  monitored_variables:
+    - 'current_status'
+    - 'download_speed'
+    - 'upload_speed'
+    - 'active_torrents'
+    - 'paused_torrents'
+    - 'total_torrents'
+
+- platform: sonarr
+  api_key: !secret sonarr_api_key
+  host: 192.168.0.102
+  days: 5
+  monitored_conditions:
+    - upcoming
+    - diskspace
+  include_paths:
+    - /TheVault
+
+- platform: sonarr_upcoming_media
+  api_key: !secret sonarr_api_key
+  host: 192.168.0.102
+  days: 5
+
+- platform: template
+  sensors:
+    batteri_s9:
+      friendly_name: S9+
+      unit_of_measurement: "%"
+      value_template: '{{ states.device_tracker.rolf_s9_gpslogger.attributes.battery|int }}'
+      device_class: battery
+
+- platform: yr
+  update_interval:
+    minutes: 15
+  monitored_conditions:
+    - temperature
+    - symbol
+    - precipitation
+    - windSpeed
+    - pressure
+    - windDirection
+    - humidity
+    - fog
+    - cloudiness
+    - lowClouds
+    - mediumClouds
+    - highClouds
+    - dewpointTemperature
+
+- platform: yr
+  name: Weather forecast
+  forecast: 6
+  monitored_conditions:
+    - temperature
+    - symbol
+    - precipitation
+    - windSpeed
+    - windDirection
+    - humidity
+    - fog
+    - cloudiness
+
+      #- platform: template
+      #  sensors:
+      #    sun.norsk:
+      #      friendly_name: "Sola"
+      #      value_template: >-
+      #        {% if is_state('sun.sun', 'below_horizon') %}
+      #          har gått ned.
+      #        {% else %}
+      #          har stått opp.
+      #        {% endif %}
+
+
+- platform: template
+  sensors:
+    yr_symbol_current_human:
+      friendly_name: "Været"
+      value_template: >-
+        {% if states.sensor.yr_symbol.state | int==1%}Klart
+        {% elif states.sensor.yr_symbol.state | int==2%}Lettskyet
+        {% elif states.sensor.yr_symbol.state | int==3%}Delvis skyet
+        {% elif states.sensor.yr_symbol.state | int==4%}Skyet
+        {% elif states.sensor.yr_symbol.state | int==5%}Regnbyger
+        {% elif states.sensor.yr_symbol.state | int==6%}Regnbyger med torden
+        {% elif states.sensor.yr_symbol.state | int==7%}Sluddbyger
+        {% elif states.sensor.yr_symbol.state | int==8%}Snøbyger
+        {% elif states.sensor.yr_symbol.state | int==9%}Regn
+        {% elif states.sensor.yr_symbol.state | int==10%}Kraftig regn
+        {% elif states.sensor.yr_symbol.state | int==11%}Kraftig regn og torden
+        {% elif states.sensor.yr_symbol.state | int==12%}Sludd
+        {% elif states.sensor.yr_symbol.state | int==13%}Snø
+        {% elif states.sensor.yr_symbol.state | int==14%}Snø og torden
+        {% elif states.sensor.yr_symbol.state | int==15%}Tåke
+        {% elif states.sensor.yr_symbol.state | int==20%}Sluddbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==21%}Snøbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==22%}Regn og torden
+        {% elif states.sensor.yr_symbol.state | int==23%}Sludd og torden
+        {% elif states.sensor.yr_symbol.state | int==24%}Lette regnbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==25%}Kraftige regnbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==26%}Lette sluddbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==27%}Kraftige sluddbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==28%}Lette snøbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==29%}Kraftige snøbyger og torden
+        {% elif states.sensor.yr_symbol.state | int==30%}Lett regn og torden
+        {% elif states.sensor.yr_symbol.state | int==31%}Lett sludd og torden
+        {% elif states.sensor.yr_symbol.state | int==32%}Kraftig sludd og torden
+        {% elif states.sensor.yr_symbol.state | int==33%}Lett snø og torden
+        {% elif states.sensor.yr_symbol.state | int==34%}Kraftig snø og torden
+        {% elif states.sensor.yr_symbol.state | int==40%}Lette regnbyger
+        {% elif states.sensor.yr_symbol.state | int==41%}Kraftige regnbyger
+        {% elif states.sensor.yr_symbol.state | int==42%}Lette sluddbyger
+        {% elif states.sensor.yr_symbol.state | int==43%}Kraftige sluddbyger
+        {% elif states.sensor.yr_symbol.state | int==44%}Lette snøbyger
+        {% elif states.sensor.yr_symbol.state | int==45%}Kraftige snøbyger
+        {% elif states.sensor.yr_symbol.state | int==46%}Lett regn
+        {% elif states.sensor.yr_symbol.state | int==47%}Lett sludd
+        {% elif states.sensor.yr_symbol.state | int==48%}Kraftig sludd
+        {% elif states.sensor.yr_symbol.state | int==49%}Lett snø
+        {% elif states.sensor.yr_symbol.state | int==50%}Kraftig snø
+        {% endif %}
+      entity_picture_template: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+        //api.met.no/weatherapi/weathericon/1.1/?symbol={{states.sensor.yr_symbol.state}};is_night=0;content_type=image/png
+        {% else %}
+        //api.met.no/weatherapi/weathericon/1.1/?symbol={{states.sensor.yr_symbol.state}};is_night=1;content_type=image/png
+        {% endif %}
+
+- platform: template
+  sensors:
+    weather_forecast_symbol_human:
+      friendly_name: "Om 6 timer:"
+      value_template: >-
+        {% if states.sensor.weather_forecast_symbol.state | int==1%}Klart
+        {% elif states.sensor.weather_forecast_symbol.state | int==2%}Lettskyet
+        {% elif states.sensor.weather_forecast_symbol.state | int==3%}Delvis skyet
+        {% elif states.sensor.weather_forecast_symbol.state | int==4%}Skyet
+        {% elif states.sensor.weather_forecast_symbol.state | int==5%}Regnbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==6%}Regnbyger med torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==7%}Sluddbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==8%}Snøbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==9%}Regn
+        {% elif states.sensor.weather_forecast_symbol.state | int==10%}Kraftig regn
+        {% elif states.sensor.weather_forecast_symbol.state | int==11%}Kraftig regn og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==12%}Sludd
+        {% elif states.sensor.weather_forecast_symbol.state | int==13%}Snø
+        {% elif states.sensor.weather_forecast_symbol.state | int==14%}Snø og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==15%}Tåke
+        {% elif states.sensor.weather_forecast_symbol.state | int==20%}Sluddbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==21%}Snøbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==22%}Regn og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==23%}Sludd og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==24%}Lette regnbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==25%}Kraftige regnbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==26%}Lette sluddbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==27%}Kraftige sluddbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==28%}Lette snøbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==29%}Kraftige snøbyger og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==30%}Lett regn og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==31%}Lett sludd og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==32%}Kraftig sludd og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==33%}Lett snø og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==34%}Kraftig snø og torden
+        {% elif states.sensor.weather_forecast_symbol.state | int==40%}Lette regnbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==41%}Kraftige regnbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==42%}Lette sluddbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==43%}Kraftige sluddbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==44%}Lette snøbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==45%}Kraftige snøbyger
+        {% elif states.sensor.weather_forecast_symbol.state | int==46%}Lett regn
+        {% elif states.sensor.weather_forecast_symbol.state | int==47%}Lett sludd
+        {% elif states.sensor.weather_forecast_symbol.state | int==48%}Kraftig sludd
+        {% elif states.sensor.weather_forecast_symbol.state | int==49%}Lett snø
+        {% elif states.sensor.weather_forecast_symbol.state | int==50%}Kraftig snø
+        {% endif %}
+      entity_picture_template: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+        //api.met.no/weatherapi/weathericon/1.1/?symbol={{states.sensor.weather_forecast_symbol.state}};is_night=0;content_type=image/png
+        {% else %}
+        //api.met.no/weatherapi/weathericon/1.1/?symbol={{states.sensor.weather_forecast_symbol.state}};is_night=1;content_type=image/png
+        {% endif %}
+
+

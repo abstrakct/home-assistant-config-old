@@ -1,0 +1,35 @@
+#- platform: mqtt
+#  name: "Sengetidsindikator"
+#  state_topic: "Rolf/sengetid"
+#  payload_on: 'True'
+#  payload_off: 'False'
+#  value_template: >-
+#    {% if value is equalto "off" %} Nei
+#    {% else %} Ja
+#    {% endif %}
+
+#- platform: 'bayesian'
+#  name: 'hjemme_bayesian'
+#  prior: 0.25
+#  probability_threshold: 0.8
+#  observations:
+#    # litt 50/50 her...
+#    - entity_id: device_tracker.rolf_s9_nmap
+#      platform: 'state'
+#      to_state: 'home'
+#      prob_given_true: 0.5
+#      prob_given_false: 0.3
+#      # høy sannsynlighet for at jeg er hjemme hvis denne er hjemme
+#    - entity_id: device_tracker.rolf_s9_gpslogger
+#      platform: 'state'
+#      to_state: 'home'
+#      prob_given_true: 0.9
+#      prob_given_false: 0.1
+#      # relativt høy sannsynlighet for at jeg er hjemme hvis bevegelsessensor registrerer bevegelse
+#    - entity_id: binary_sensor.bevegelsessensor_stue
+#      platform: 'state'
+#      to_state: 'on'
+#      prob_given_true: 0.8
+#      prob_given_false: 0.2
+
+

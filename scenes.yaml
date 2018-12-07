@@ -1,0 +1,120 @@
+# TODO: bruk gruppe oppholdsrom!
+- name: Oppholdsrom av
+  entities:
+    light.stue:
+      state: off
+      transition: 2
+    light.kontor_1:
+      state: off
+      transition: 2
+    light.kontor_3:
+      state: off
+      transition: 2
+
+- name: Oppholdsrom dag
+  entities:
+    light.stue:
+      state: on
+      transition: 2
+      brightness_pct: 100
+      color_temp: 250
+    light.kontor_1:
+      state: on
+      transition: 2
+      brightness_pct: 100
+      color_temp: 250
+    light.kontor_3:
+      state: on
+      transition: 2
+      brightness_pct: 100
+      color_temp: 250
+
+- name: Oppholdsrom kveld
+  entities:
+    light.stue:
+      state: on
+      transition: 2
+      brightness_pct: 60
+      color_temp: 400
+    light.kontor_1:
+      state: on
+      transition: 2
+      brightness_pct: 60
+      color_temp: 400
+    light.kontor_3:
+      state: on
+      transition: 2
+      brightness_pct: 60
+      color_temp: 400
+
+- name: Oppholdsrom solnedgang
+  entities:
+    light.stue:
+      state: on
+      transition: 10
+      brightness_pct: 75
+      color_temp: 350
+    light.kontor_1:
+      state: on
+      transition: 10
+      brightness_pct: 75
+      color_temp: 350
+    light.kontor_3:
+      state: on
+      transition: 10
+      brightness_pct: 75
+      color_temp: 350
+
+- name: Oppholdsrom pause
+  entities:
+    light.stue:
+      state: on
+      transition: 2
+      brightness_pct: 30
+      color_temp: 400
+    light.kontor_1:
+      state: on
+      transition: 2
+      brightness_pct: 30
+      color_temp: 400
+    light.kontor_3:
+      state: on
+      transition: 2
+      brightness_pct: 30
+      color_temp: 400
+
+- name: Sengetid
+  entities:
+    group.Oppholdsrom:
+      color_temp: 400
+      brightness_pct: 20
+      transition: 5
+      state: on
+    light.soverom:
+      state: on
+    light.soverom_taklampe:
+      state: off
+
+      #- name: Vekkerklokkelys
+      #  entities:
+      #    light.soverom_taklampe:
+      #      state: on
+      #      transition: 1800
+      #      brightness_pct: 100
+      #      color_temp: 250
+      #
+      #- name: Vekkerklokkelys_del1
+      #  entities:
+      #    light.soverom_taklampe:
+      #      state: on
+      #      transition: 30
+      #      brightness_pct: 5
+      #      color_temp: 454
+      #
+      #- name: Vekkerklokkelys_del2
+      #  entities:
+      #    light.soverom_taklampe:
+      #      state: on
+      #      transition: 600
+      #      brightness_pct: 100
+      #      color_temp: 250

@@ -1,0 +1,43 @@
+esphomeyaml:
+  name: stue
+  platform: ESP8266
+  board: d1_mini
+
+wifi:
+  ssid: 'Inteno-EA3F'
+  password: 'VMWIDUT3ANASBU'
+  manual_ip:
+    static_ip: 192.168.0.163
+    gateway: 192.168.0.1
+    subnet: 255.255.255.0
+
+mqtt:
+  broker: '192.168.0.105'
+  username: 'rolf'
+  password: 'b3aronSEmqtt'
+
+# Enable logging
+logger:
+
+ota:
+
+i2c:
+
+# Sensors
+binary_sensor:
+  - platform: gpio
+    pin: D7
+    name: "Bevegelsessensor stue"
+    device_class: motion
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "Temperatur stue"
+      oversampling: 16x
+    pressure:
+      name: "Lufttrykk stue"
+    humidity:
+      name: "Luftfuktighet stue"
+    address: 0x76
+    update_interval: 10s

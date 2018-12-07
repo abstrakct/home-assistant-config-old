@@ -1,0 +1,24 @@
+sensor.yr_temperature:
+  friendly_name: Temperatur
+sensor.yr_wind_speed:
+  friendly_name: Vindhastighet
+sensor.yr_symbol: {}
+sensor.yr_precipitation:
+  friendly_name: Nedbør
+sensor.yr_humidity:
+  friendly_name: Luftfuktighet
+sensor.weather_forecast_temperature:
+  friendly_name: Temperatur
+sensor.weather_forecast_wind_speed:
+  friendly_name: Vindhastighet
+sensor.weather_forecast_symbol: {}
+sensor.weather_forecast_precipitation:
+  friendly_name: Nedbør
+sensor.weather_forecast_humidity:
+  friendly_name: Luftfuktighet
+sensor.sonarr_disk_space:
+  friendly_name: TheVault ledig plass
+sensor.batteri_s9:
+  friendly_name: S9+
+sun.sun:
+  friendly_name: Sola

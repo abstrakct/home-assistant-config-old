@@ -1,0 +1,6 @@
+platform: command_line
+switches:
+  tv_kodi:
+    command_on: ssh osmc@192.168.0.136 "/home/osmc/tv-on.sh"
+    command_off: ssh osmc@192.168.0.136 "echo 'standby 0' | cec-client -s"
+    friendly_name: TV
