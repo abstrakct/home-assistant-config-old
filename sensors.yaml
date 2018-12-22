@@ -1,3 +1,9 @@
+- platform: entur_public_transport
+  name: Transport
+  stop_ids:
+    - 'NSR:StopPlace:43869'
+    - 'NSR:StopPlace:58384'
+
 - platform: history_stats
   name: stat_tid_hjemme_uke
   friendly_name: "Tid hjemme siste uke"

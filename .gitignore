@@ -5,6 +5,7 @@ secrets.yaml
 .uuid
 TODO
 esphomeyaml/stue/
+esphomeyaml/gang/
 fcm_android_registrations.conf
 home-assistant.log
 home-assistant_v2*
@@ -16,3 +17,4 @@ www/custom-lovelace/
 www/google33676b690d431f43.html
 www/hbm_bat.png
 *.pyc
+ip_bans.yaml

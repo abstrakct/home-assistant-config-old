@@ -5,6 +5,8 @@ vintage:
   light-slate-color: "#789F8A"
   maroon-color: "#862715"
   primary-font-family: "Lucida Console"        
+  #primary-font-family: "GohuFont Powerline"        
+  #primary-font-family: "Roboto Mono for Powerline"        
   paper-listbox-background-color: "var(--turmeric-color)"
   light-primary-color: "var(--light-turmeric-color)"
   paper-item-selected_-_background-color: "var(--light-turmeric-color)"

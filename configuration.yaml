@@ -17,6 +17,8 @@ homeassistant:
 frontend:
   themes: !include themes.yaml
 
+lovelace:
+
 # Enables configuration UI
 config:
 
@@ -129,6 +131,10 @@ panel_iframe:
     title: Node-RED
     icon: mdi:sitemap
     url: https://herebemonsters:1880
+    #esphomeyaml:
+    #  title: esphomeyaml
+    #  icon: mdi:chip
+    #  url: http://herebemonsters:6502
   logviewer:
     title: Log Viewer
     icon: mdi:book-open
@@ -136,18 +142,13 @@ panel_iframe:
  
 device_tracker:
   - platform: gpslogger
-    #- platform: owntracks_http
-    #  track_new_devices: yes
-    #  consider_home: 0:05
-    #  waypoints: true
-    #  waypoint_whitelist:
-    #    - rolf
-    #  region_mapping:
-    #    Home: home
   - platform: nmap_tracker
     interval_seconds: 30
+    #consider_home: 0:05
     hosts:
       - 192.168.0.192
+        #- 192.168.0.140
+        #- 192.168.0.211
     #exclude:
     #  - 192.168.0.1
     #  - 192.168.0.102
@@ -181,14 +182,14 @@ http:
   base_url: !secret duckdns_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
-  #trusted_networks:
+  trusted_networks:
   #  - 127.0.0.1
   #  - ::1
-  #  - 192.168.0.0/24
+    - 192.168.0.0/24
   #  - fd00::/8
   ip_ban_enabled: true
   login_attempts_threshold: 5
-  api_password: !secret api_password
+  #api_password: !secret api_password
 
   #notify:    
   #  - name: android
@@ -225,7 +226,7 @@ hassio:
 
 logger:
   default: warning
-  logs:
+  #logs:
     #homeassistant.components.mqtt: debug
 
     #input_boolean:

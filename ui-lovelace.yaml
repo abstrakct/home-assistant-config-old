@@ -32,6 +32,8 @@ views:
           show_header_toggle: false
           entities:
             - sensor.min_status
+            - entity: group.rolf
+              icon: mdi:map-marker
             - entity: sensor.batteri_s9
               name: Batteri telefon
             - entity: sensor.sengetidsindikator
@@ -42,10 +44,16 @@ views:
               name: Temperatur ute om 6 timer
             - entity: sensor.temperatur_stue
               name: Temperatur stue
+            - entity: sensor.temperatur_gang
+              name: Temperatur gang
             - entity: sensor.luftfuktighet_stue
               name: Luftfuktighet stue
+            - entity: sensor.luftfuktighet_gang
+              name: Luftfuktighet gang
             - entity: binary_sensor.bevegelsessensor_stue
               name: Bevegelsessensor stue
+            - entity: binary_sensor.bevegelsessensor_gang
+              name: Bevegelsessensor gang
         style:
           border-radius: 20px
           border: solid 1px rgba(100,100,100,0.3)
@@ -164,15 +172,33 @@ views:
       - type: custom:card-modder
         card:
           type: entities
+          show_header_toggle: false
+          entities:
+            - entity: sensor.transport_breidablikk_2
+              name: Neste trikk til byen
+            - entity: sensor.transport_breidablikk
+              name: Neste buss til byen
+            - entity: sensor.transport_breidablikk_platform_75324
+              name: Neste buss fra byen
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: entities
           title: Brytere
           show_header_toggle: false
           entities:
+            - entity: light.stue
+            - entity: light.kontor_1
+            - entity: light.kontor_3
             - entity: light.gang
             - entity: input_boolean.kaffetrakter_lag_kaffe
               icon: mdi:coffee
             - entity: switch.kaffetrakter
               icon: mdi:coffee
-            - entity: switch.circadian_lighting_circadian_lighting
+              #- entity: switch.circadian_lighting_circadian_lighting
             - entity: input_boolean.sengetid_override
             - entity: input_boolean.kaffetrakter_override
             - entity: input_boolean.kaffetrakter_renseprogram
@@ -224,6 +250,18 @@ views:
           entities:
             - entity: sensor.yr_temperature
               name: Temperatur ute
+        style:
+          border-radius: 20px
+          border: solid 1px rgba(100,100,100,0.3)
+
+      - type: custom:card-modder
+        card:
+          type: history-graph
+          hours_to_show: 96
+          refresh_interval: 3600
+          entities:
+            - entity: sensor.temperatur_gang
+              name: Temperatur gang
         style:
           border-radius: 20px
           border: solid 1px rgba(100,100,100,0.3)

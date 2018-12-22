@@ -4,6 +4,7 @@
 Rolf: 
   - device_tracker.rolf_s9_nmap
   - device_tracker.rolf_s9_gpslogger
+    #- device_tracker.d4e6b70bcb1f
 
     #Rolf_status:
     #  - sensor.rolfs_tilstand
